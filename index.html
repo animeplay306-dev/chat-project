@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دردشة شادو 💙</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+background:#0f172a;
+color:white;
+font-family:Cairo, sans-serif;
+}
+
+.chat-box{
+max-height:400px;
+overflow-y:auto;
+}
+
+.message{
+background:#1e293b;
+padding:10px;
+border-radius:15px;
+margin:8px 0;
+}
+
+.username{
+font-size:12px;
+color:#38bdf8;
+}
+</style>
+</head>
+<body class="p-5">
+
+<!-- تسجيل الدخول -->
+<div id="loginBox" class="flex flex-col gap-3 items-center mt-20">
+<h2 class="text-2xl font-bold">تسجيل الدخول</h2>
+<input id="username" placeholder="اكتب اسمك" class="p-2 rounded text-black">
+<button onclick="login()" class="bg-blue-500 px-4 py-2 rounded">دخول</button>
+</div>
+
+<!-- الدردشة -->
+<div id="chatSection" class="hidden">
+<h2 class="text-xl font-bold mb-3">💙 الدردشة</h2>
+
+<div class="chat-box" id="messages"></div>
+
+<div class="flex gap-2 mt-3">
+<input id="messageInput" placeholder="اكتب رسالة..." class="p-2 rounded text-black flex-1">
+<button onclick="sendMessage()" class="bg-green-500 px-4 py-2 rounded">إرسال</button>
+</div>
+
+</div>
+
+<script>
+
+let currentUser = "";
+
+function login(){
+const name = document.getElementById("username").value;
+if(name.trim() === "") return alert("اكتب اسمك!");
+
+currentUser = name;
+
+document.getElementById("loginBox").classList.add("hidden");
+document.getElementById("chatSection").classList.remove("hidden");
+}
+
+function sendMessage(){
+const msg = document.getElementById("messageInput").value;
+if(msg.trim() === "") return;
+
+const messageDiv = document.createElement("div");
+messageDiv.className = "message";
+
+messageDiv.innerHTML = `
+<div class="username">${currentUser}</div>
+<div>${msg}</div>
+`;
+
+document.getElementById("messages").appendChild(messageDiv);
+document.getElementById("messageInput").value = "";
+}
+
+</script>
+
+</body>
+</html>
